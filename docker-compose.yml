@@ -1,6 +1,6 @@
 services:
   mariadb:
-    image: mariadb:10.6.8
+    image: mariadb:10.6
     environment:
       MARIADB_ROOT_PASSWORD: admin
     ports:
