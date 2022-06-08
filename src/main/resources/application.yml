@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost/registro_animais?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password: admin
+  output:
+    ansi:
+      enabled: ALWAYS
