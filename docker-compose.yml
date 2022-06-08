@@ -1,0 +1,12 @@
+services:
+  mariadb:
+    image: mariadb:10.6.8
+    environment:
+      MARIADB_ROOT_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - data:/var/lib/mysql
+
+volumes:
+  data:
