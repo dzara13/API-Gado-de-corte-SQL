@@ -14,7 +14,7 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String numero;
+    private int numero;
     private char sexo;
     private Date nascimento;
 }
