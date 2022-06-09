@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RegistrofazendaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RegistrofazendaApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RegistrofazendaApplication.class, args);
+    }
 
 }
