@@ -1,6 +1,6 @@
 create table mae
 (
-    id bigint auto_increment
+    id bigint not null auto_increment
         primary key
 );
 
