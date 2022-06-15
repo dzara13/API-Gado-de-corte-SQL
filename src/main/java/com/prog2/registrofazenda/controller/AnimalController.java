@@ -36,4 +36,10 @@ public class AnimalController {
     public ResponseEntity<Animal> findByNumero(@PathVariable int numero) {
         return animalService.buscarNumero(numero);
     }
+
+    @DeleteMapping("/animal/{id}")
+    public Animal excluirId(@PathVariable Long id) {
+        animalService.deletarId(id);
+        return null;
+    }
 }

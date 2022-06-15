@@ -16,4 +16,8 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     Optional<Animal> findByNumero(int numero);
 
     boolean existsByNumero(int numero);
+
+    boolean existsById(Long id);
+    @Override
+    void deleteById(Long aLong);
 }

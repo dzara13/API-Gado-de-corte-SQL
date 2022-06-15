@@ -44,4 +44,15 @@ public class AnimalService {
         return ResponseEntity.notFound().build();
     }
 
+    public ResponseEntity<Void> deletarId(Long id) {
+        if (animalRepository.existsById(id) == true) {
+
+            animalRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+
+
+        }
+    }
 }
