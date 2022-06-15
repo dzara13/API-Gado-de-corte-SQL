@@ -4,6 +4,7 @@ import com.prog2.registrofazenda.model.Animal;
 import com.prog2.registrofazenda.service.AnimalService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,14 +16,24 @@ public class AnimalController {
 
     private AnimalService animalService;
 
-    @GetMapping("/animais")
+    @GetMapping("/animal")
     public List<Animal> listar() {
         return animalService.listar();
     }
 
-    @PostMapping("/animais")
+    @PostMapping("/animal")
     @ResponseStatus(HttpStatus.CREATED)
-    private Animal registrar(@Valid @RequestBody Animal animal) {
+    public Animal registrar(@Valid @RequestBody Animal animal) {
         return animalService.salvar(animal);
+    }
+
+    @GetMapping("/animal/{id}")
+    public ResponseEntity<Animal> buscarId(@PathVariable Long id) {
+        return animalService.buscarId(id);
+    }
+
+    @GetMapping("/animal/numero/{numero}")
+    public ResponseEntity<Animal> findByNumero(@PathVariable int numero) {
+        return animalService.buscarNumero(numero);
     }
 }
