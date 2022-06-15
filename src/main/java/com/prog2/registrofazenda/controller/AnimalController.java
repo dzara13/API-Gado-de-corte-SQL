@@ -27,7 +27,7 @@ public class AnimalController {
         return animalService.salvar(animal);
     }
 
-    @GetMapping("/animal/{id}")
+    @GetMapping("/animal/id/{id}")
     public ResponseEntity<Animal> buscarId(@PathVariable Long id) {
         return animalService.buscarId(id);
     }
@@ -37,9 +37,14 @@ public class AnimalController {
         return animalService.buscarNumero(numero);
     }
 
-    @DeleteMapping("/animal/{id}")
-    public Animal excluirId(@PathVariable Long id) {
-        animalService.deletarId(id);
-        return null;
+    @DeleteMapping("/animal/id/{id}")
+    public ResponseEntity<Void> deletarId(@PathVariable Long id) {
+
+        return animalService.deletarId(id);
+    }
+
+    @DeleteMapping("/animal/numero/{numero}")
+    public ResponseEntity<Void> deletarNumero(@PathVariable int numero) {
+        return animalService.deletarNumero(numero);
     }
 }

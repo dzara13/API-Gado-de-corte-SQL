@@ -22,10 +22,11 @@ public class AnimalService {
 
     @Transactional
     public Animal salvar(Animal animal) {
-        if (animalRepository.existsByNumero(animal.getNumero()) == true) {
-            throw new NegocioException("O numero do Animal ja Existe na base de dados!");
-        } else
+        if (!animalRepository.existsByNumero(animal.getNumero())) {
             return animalRepository.save(animal);
+        } else {
+            throw new NegocioException("O numero do Animal ja Existe na base de dados!");
+        }
     }
 
     public ResponseEntity<Animal> buscarId(Long id) {
@@ -44,15 +45,25 @@ public class AnimalService {
         return ResponseEntity.notFound().build();
     }
 
+    @Transactional
     public ResponseEntity<Void> deletarId(Long id) {
-        if (animalRepository.existsById(id) == true) {
-
+        if (!animalRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        } else {
             animalRepository.deleteById(id);
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-
-
         }
+    }
+
+    @Transactional
+    public ResponseEntity<Void> deletarNumero(int numero) {
+        if (!animalRepository.existsByNumero(numero)) {
+            return ResponseEntity.notFound().build();
+        } else {
+            animalRepository.deleteByNumero(numero);
+            return ResponseEntity.noContent().build();
+        }
+
+
     }
 }
