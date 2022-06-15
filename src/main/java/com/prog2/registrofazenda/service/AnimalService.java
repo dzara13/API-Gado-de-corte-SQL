@@ -23,7 +23,6 @@ public class AnimalService {
     @Transactional
     public Animal salvar(Animal animal) {
         if (animalRepository.existsByNumero(animal.getNumero()) == true) {
-
             throw new NegocioException("O numero do Animal ja Existe na base de dados!");
         } else
             return animalRepository.save(animal);

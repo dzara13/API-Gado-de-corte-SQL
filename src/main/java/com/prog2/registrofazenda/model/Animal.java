@@ -17,4 +17,5 @@ public class Animal {
     private int numero;
     private char sexo;
     private Date nascimento;
+    private String marca;
 }
