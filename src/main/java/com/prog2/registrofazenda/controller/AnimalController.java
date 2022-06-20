@@ -24,7 +24,6 @@ public class AnimalController {
         return animalService.listar();
     }
 
-    //FIXME corrigir erro no registro onde a data está registrando no dia anterior do dia que foi passado;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Animal registrar(@Valid @RequestBody Animal animal) {
