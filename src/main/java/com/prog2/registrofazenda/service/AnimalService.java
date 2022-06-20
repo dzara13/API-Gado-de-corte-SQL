@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,7 +64,9 @@ public class AnimalService {
             animalRepository.deleteByNumero(numero);
             return ResponseEntity.noContent().build();
         }
+    }
 
-
+    public List<Animal> buscarPorPeriodo(Date inicio, Date fim) {
+        return animalRepository.findByNascimentoBetween(inicio, fim);
     }
 }
