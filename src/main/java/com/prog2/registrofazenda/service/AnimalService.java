@@ -32,18 +32,12 @@ public class AnimalService {
 
     public ResponseEntity<Animal> buscarId(Long id) {
         Optional<Animal> animal = animalRepository.findById(id);
-        if (animal.isPresent()) {
-            return ResponseEntity.ok(animal.get());
-        }
-        return ResponseEntity.notFound().build();
+        return animal.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     public ResponseEntity<Animal> buscarNumero(int numero) {
         Optional<Animal> animal = animalRepository.findByNumero(numero);
-        if (animal.isPresent()) {
-            return ResponseEntity.ok(animal.get());
-        }
-        return ResponseEntity.notFound().build();
+        return animal.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Transactional
@@ -70,7 +64,15 @@ public class AnimalService {
         return animalRepository.findByNascimentoBetween(inicio, fim);
     }
 
-    public long contador() {
+    public long contadorDeRegistros() {
         return animalRepository.count();
+    }
+
+    public long contagemPorPeriodo(Date inicio, Date fim) {
+        List<Animal> quantidade = buscarPorPeriodo(inicio, fim);
+        if (quantidade.isEmpty()) {
+            throw new NegocioException("Nenhum Registro no periodo especificado");
+        } else
+            return quantidade.size();
     }
 }

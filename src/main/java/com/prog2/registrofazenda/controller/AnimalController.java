@@ -58,7 +58,12 @@ public class AnimalController {
 
     @GetMapping("/contagem")
     public long contagem() {
-        return animalService.contador();
+        return animalService.contadorDeRegistros();
+    }
+    @GetMapping("/contagemporperiodo")
+    @ResponseStatus(HttpStatus.FOUND)
+    public long contagemPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
+        return animalService.contagemPorPeriodo(inicio, fim);
     }
 
 }
