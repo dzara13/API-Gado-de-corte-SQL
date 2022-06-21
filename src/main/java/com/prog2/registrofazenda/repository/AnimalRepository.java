@@ -12,9 +12,6 @@ import java.util.Optional;
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-    @Override
-    Optional<Animal> findById(Long aLong);
-
     Optional<Animal> findByNumero(int numero);
 
     boolean existsByNumero(int numero);

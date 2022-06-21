@@ -69,4 +69,8 @@ public class AnimalService {
     public List<Animal> buscarPorPeriodo(Date inicio, Date fim) {
         return animalRepository.findByNascimentoBetween(inicio, fim);
     }
+
+    public long contador() {
+        return animalRepository.count();
+    }
 }

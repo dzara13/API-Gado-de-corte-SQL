@@ -55,4 +55,10 @@ public class AnimalController {
     public List<Animal> buscarPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
         return animalService.buscarPorPeriodo(inicio, fim);
     }
+
+    @GetMapping("/contagem")
+    public long contagem() {
+        return animalService.contador();
+    }
+
 }
