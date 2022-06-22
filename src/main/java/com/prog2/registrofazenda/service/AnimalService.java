@@ -1,6 +1,6 @@
 package com.prog2.registrofazenda.service;
 
-import com.prog2.registrofazenda.model.Animal;
+import com.prog2.registrofazenda.model.AnimalModel;
 import com.prog2.registrofazenda.model.exception.NegocioException;
 import com.prog2.registrofazenda.repository.AnimalRepository;
 import lombok.AllArgsConstructor;
@@ -16,22 +16,22 @@ import java.util.Optional;
 public class AnimalService {
     private AnimalRepository animalRepository;
 
-    public List<Animal> listar() {
+    public List<AnimalModel> listar() {
         return animalRepository.findAll();
     }
 
     @Transactional
-    public Animal salvar(Animal animal) throws NegocioException {
-        if (!animalRepository.existsByNumero(animal.getNumero())) {
-            return animalRepository.save(animal);
+    public AnimalModel salvar(AnimalModel animalModel) throws NegocioException {
+        if (!animalRepository.existsByNumero(animalModel.getNumero())) {
+            return animalRepository.save(animalModel);
         } else {
             throw new NegocioException("O numero do Animal ja Existe na base de dados!");
         }
     }
 
-    public Animal buscarId(Long id) throws NegocioException {
+    public AnimalModel buscarId(Long id) throws NegocioException {
 
-        Optional<Animal> animal = animalRepository.findById(id);
+        Optional<AnimalModel> animal = animalRepository.findById(id);
         if (animal.isPresent()) {
             return animal.get();
         } else {
@@ -39,9 +39,9 @@ public class AnimalService {
         }
     }
 
-    public Animal buscarNumero(Integer numero) throws NegocioException {
+    public AnimalModel buscarNumero(Integer numero) throws NegocioException {
 
-        Optional<Animal> resultado = animalRepository.findByNumero(numero);
+        Optional<AnimalModel> resultado = animalRepository.findByNumero(numero);
         if (resultado.isPresent()) {
             return resultado.get();
         } else {
@@ -71,12 +71,12 @@ public class AnimalService {
         return null;
     }
 
-    public List<Animal> buscarPorPeriodo(Date inicio, Date fim) throws NegocioException {
-        List<Animal> animals = animalRepository.findByNascimentoBetween(inicio, fim);
-        if (animals.isEmpty()) {
+    public List<AnimalModel> buscarPorPeriodo(Date inicio, Date fim) throws NegocioException {
+        List<AnimalModel> animalModels = animalRepository.findByNascimentoBetween(inicio, fim);
+        if (animalModels.isEmpty()) {
             throw new NegocioException("Nenhum Registro no Periodo especificado");
         } else {
-            return animals;
+            return animalModels;
         }
     }
 
@@ -90,7 +90,7 @@ public class AnimalService {
     }
 
     public long contagemPorPeriodo(Date inicio, Date fim) throws NegocioException {
-        List<Animal> quantidade = buscarPorPeriodo(inicio, fim);
+        List<AnimalModel> quantidade = buscarPorPeriodo(inicio, fim);
         if (quantidade.isEmpty()) {
             throw new NegocioException("Nenhum Registro no periodo especificado");
         } else

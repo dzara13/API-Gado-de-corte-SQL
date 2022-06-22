@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
-public class Animal {
+public class AnimalModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

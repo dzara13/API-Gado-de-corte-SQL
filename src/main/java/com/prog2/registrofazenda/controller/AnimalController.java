@@ -1,6 +1,6 @@
 package com.prog2.registrofazenda.controller;
 
-import com.prog2.registrofazenda.model.Animal;
+import com.prog2.registrofazenda.model.AnimalModel;
 import com.prog2.registrofazenda.model.exception.NegocioException;
 import com.prog2.registrofazenda.service.AnimalService;
 import lombok.AllArgsConstructor;
@@ -23,14 +23,14 @@ public class AnimalController {
     private AnimalService animalService;
 
     @GetMapping
-    public List<Animal> listar() {
+    public List<AnimalModel> listar() {
         return animalService.listar();
     }
 
     @PostMapping
-    public ResponseEntity<Animal> registrar(@Valid @RequestBody Animal animal) {
+    public ResponseEntity<AnimalModel> registrar(@Valid @RequestBody AnimalModel animalModel) {
         try {
-            Animal animals = animalService.salvar(animal);
+            AnimalModel animals = animalService.salvar(animalModel);
             return ResponseEntity.status(HttpStatus.CREATED).body(animals);
         } catch (NegocioException e) {
             log.error(e.getMessage());
@@ -39,10 +39,10 @@ public class AnimalController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Animal> buscarId(@PathVariable Long id) {
+    public ResponseEntity<AnimalModel> buscarId(@PathVariable Long id) {
         try {
-            Animal animal = animalService.buscarId(id);
-            return ResponseEntity.status(HttpStatus.FOUND).body(animal);
+            AnimalModel animalModel = animalService.buscarId(id);
+            return ResponseEntity.status(HttpStatus.FOUND).body(animalModel);
         } catch (NegocioException e) {
             log.error(e.getMessage());
             return ResponseEntity.notFound().build();
@@ -50,10 +50,10 @@ public class AnimalController {
     }
 
     @GetMapping("/numero/{numero}")
-    public ResponseEntity<Animal> findByNumero(@PathVariable int numero) {
+    public ResponseEntity<AnimalModel> findByNumero(@PathVariable int numero) {
         try {
-            Animal animal = animalService.buscarNumero(numero);
-            return ResponseEntity.status(HttpStatus.FOUND).body(animal);
+            AnimalModel animalModel = animalService.buscarNumero(numero);
+            return ResponseEntity.status(HttpStatus.FOUND).body(animalModel);
         } catch (NegocioException e) {
             log.error(e.getMessage());
             return ResponseEntity.notFound().build();
@@ -84,10 +84,10 @@ public class AnimalController {
 
     @GetMapping("/periodonascimento")
     @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<List<Animal>> buscarPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
+    public ResponseEntity<List<AnimalModel>> buscarPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
         try {
-            List<Animal> animals = animalService.buscarPorPeriodo(inicio, fim);
-            return ResponseEntity.status(HttpStatus.FOUND).body(animals);
+            List<AnimalModel> animalModels = animalService.buscarPorPeriodo(inicio, fim);
+            return ResponseEntity.status(HttpStatus.FOUND).body(animalModels);
         } catch (NegocioException e) {
             log.error(e.getMessage());
             return ResponseEntity.notFound().build();
