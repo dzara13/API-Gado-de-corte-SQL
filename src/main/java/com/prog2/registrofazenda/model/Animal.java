@@ -12,7 +12,7 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int numero;
+    private Integer numero;
     private char sexo;
 
     @Temporal(TemporalType.DATE)

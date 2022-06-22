@@ -4,7 +4,6 @@ import com.prog2.registrofazenda.model.Animal;
 import com.prog2.registrofazenda.model.exception.NegocioException;
 import com.prog2.registrofazenda.repository.AnimalRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,7 @@ public class AnimalService {
     }
 
     @Transactional
-    public Animal salvar(Animal animal) {
+    public Animal salvar(Animal animal) throws NegocioException {
         if (!animalRepository.existsByNumero(animal.getNumero())) {
             return animalRepository.save(animal);
         } else {
@@ -30,45 +29,62 @@ public class AnimalService {
         }
     }
 
-    public ResponseEntity<Animal> buscarId(Long id) {
+    public Animal buscarId(Long id) throws NegocioException {
+
         Optional<Animal> animal = animalRepository.findById(id);
-        return animal.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if (animal.isPresent()) {
+            return animal.get();
+        } else {
+            throw new NegocioException(String.format("Nenhum animal encontrado com o ID: %d", id));
+        }
     }
 
-    public ResponseEntity<Animal> buscarNumero(int numero) {
-        Optional<Animal> animal = animalRepository.findByNumero(numero);
-        return animal.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public Animal buscarNumero(Integer numero) throws NegocioException {
+
+        Optional<Animal> resultado = animalRepository.findByNumero(numero);
+        if (resultado.isPresent()) {
+            return resultado.get();
+        } else {
+            throw new NegocioException(String.format("Nenhum animal encontrado com o numero: %d", numero));
+        }
     }
 
     @Transactional
-    public ResponseEntity<Void> deletarId(Long id) {
-        if (!animalRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        } else {
+    public Void deletarId(Long id) throws NegocioException {
+        boolean existsById = animalRepository.existsById(id);
+        if (existsById) {
             animalRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
+        } else {
+            throw new NegocioException(String.format("Não foi encontrado o ID: %d", id));
         }
+        return null;
     }
 
     @Transactional
-    public ResponseEntity<Void> deletarNumero(int numero) {
-        if (!animalRepository.existsByNumero(numero)) {
-            return ResponseEntity.notFound().build();
-        } else {
+    public Void deletarNumero(int numero) throws NegocioException {
+        boolean existsByNumero = animalRepository.existsByNumero(numero);
+        if (existsByNumero) {
             animalRepository.deleteByNumero(numero);
-            return ResponseEntity.noContent().build();
+        } else {
+            throw new NegocioException(String.format("Não foi possivel encontrar o numero: %d", numero));
         }
+        return null;
     }
 
-    public List<Animal> buscarPorPeriodo(Date inicio, Date fim) {
+    public List<Animal> buscarPorPeriodo(Date inicio, Date fim) throws NegocioException {
         return animalRepository.findByNascimentoBetween(inicio, fim);
     }
 
-    public long contadorDeRegistros() {
-        return animalRepository.count();
+    public Long contadorDeRegistros() throws NegocioException {
+        Long animais = animalRepository.count();
+        if (animais == 0) {
+            throw new NegocioException("Nenhum Registro encontrado");
+        } else {
+            return animais;
+        }
     }
 
-    public long contagemPorPeriodo(Date inicio, Date fim) {
+    public long contagemPorPeriodo(Date inicio, Date fim) throws NegocioException {
         List<Animal> quantidade = buscarPorPeriodo(inicio, fim);
         if (quantidade.isEmpty()) {
             throw new NegocioException("Nenhum Registro no periodo especificado");
