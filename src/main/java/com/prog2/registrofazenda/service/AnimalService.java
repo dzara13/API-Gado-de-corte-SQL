@@ -1,6 +1,7 @@
 package com.prog2.registrofazenda.service;
 
 import com.prog2.registrofazenda.model.AnimalModel;
+import com.prog2.registrofazenda.model.MetricasModel;
 import com.prog2.registrofazenda.model.exception.NegocioException;
 import com.prog2.registrofazenda.repository.AnimalRepository;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,8 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class AnimalService {
+
+    private MetricasModel metricasModel;
     private AnimalRepository animalRepository;
 
     public List<AnimalModel> listar() {
@@ -96,4 +99,9 @@ public class AnimalService {
         } else
             return quantidade.size();
     }
+
+    public long metrics(Date inicio, Date fim) throws NegocioException {
+        return contagemPorPeriodo(inicio, fim) / animalRepository.findByNascimentoTamBetween(inicio, fim);
+    }
+
 }

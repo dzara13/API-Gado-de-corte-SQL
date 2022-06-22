@@ -22,4 +22,6 @@ public interface AnimalRepository extends JpaRepository<AnimalModel, Long> {
     void deleteByNumero(int numero);
 
     List<AnimalModel> findByNascimentoBetween(Date inicio, Date fim);
+
+    int findByNascimentoTamBetween(Date inicio, Date fim);
 }
