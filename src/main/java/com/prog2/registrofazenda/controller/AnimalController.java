@@ -84,8 +84,14 @@ public class AnimalController {
 
     @GetMapping("/periodonascimento")
     @ResponseStatus(HttpStatus.FOUND)
-    public List<Animal> buscarPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
-        return animalService.buscarPorPeriodo(inicio, fim);
+    public ResponseEntity<List<Animal>> buscarPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
+        try {
+            List<Animal> animals = animalService.buscarPorPeriodo(inicio, fim);
+            return ResponseEntity.status(HttpStatus.FOUND).body(animals);
+        } catch (NegocioException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/contagem")
@@ -102,7 +108,13 @@ public class AnimalController {
 
     @GetMapping("/contagemporperiodo")
     @ResponseStatus(HttpStatus.FOUND)
-    public long contagemPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
-        return animalService.contagemPorPeriodo(inicio, fim);
+    public ResponseEntity<Long> contagemPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
+        try {
+            long registros = animalService.contagemPorPeriodo(inicio, fim);
+            return ResponseEntity.status(HttpStatus.FOUND).body(registros);
+        } catch (NegocioException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -72,7 +72,12 @@ public class AnimalService {
     }
 
     public List<Animal> buscarPorPeriodo(Date inicio, Date fim) throws NegocioException {
-        return animalRepository.findByNascimentoBetween(inicio, fim);
+        List<Animal> animals = animalRepository.findByNascimentoBetween(inicio, fim);
+        if (animals.isEmpty()) {
+            throw new NegocioException("Nenhum Registro no Periodo especificado");
+        } else {
+            return animals;
+        }
     }
 
     public Long contadorDeRegistros() throws NegocioException {
