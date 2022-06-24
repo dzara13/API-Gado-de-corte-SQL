@@ -117,4 +117,12 @@ public class AnimalController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/metricas")
+    public ResponseEntity<Long> metricas(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
+
+        long metrics = animalService.metrics(inicio, fim);
+        return ResponseEntity.status(HttpStatus.OK).body(metrics);
+
+    }
 }

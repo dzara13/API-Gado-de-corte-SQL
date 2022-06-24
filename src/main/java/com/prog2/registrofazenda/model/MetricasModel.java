@@ -1,11 +1,9 @@
 package com.prog2.registrofazenda.model;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class MetricasModel {
     private int idade;
     private double mediaAnual;

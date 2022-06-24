@@ -100,8 +100,7 @@ public class AnimalService {
             return quantidade.size();
     }
 
-    public long metrics(Date inicio, Date fim) throws NegocioException {
+    public long metrics(Date inicio, Date fim){
         return contagemPorPeriodo(inicio, fim) / animalRepository.findByNascimentoTamBetween(inicio, fim);
     }
-
 }
