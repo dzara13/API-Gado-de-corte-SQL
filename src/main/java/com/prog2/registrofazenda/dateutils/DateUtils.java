@@ -5,12 +5,10 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class DateUtils {
-
     private DateUtils() {
-
     }
 
-    public static final LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+    public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();

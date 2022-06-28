@@ -111,16 +111,23 @@ public class AnimalService {
     public MetricasModel metricas(Date inicio, Date fim) {
         var metricas = new MetricasModel();
 
-        double mensal = (double) contagemPorPeriodo(inicio, fim);
+        double periodoContagem = contagemPorPeriodo(inicio, fim);
 
+        //conversão de date para temporal
         LocalDate inicioConvert = convertToLocalDateViaInstant(inicio);
         LocalDate fimConvert = convertToLocalDateViaInstant(fim);
 
-        long periodo = ChronoUnit.DAYS.between(inicioConvert, fimConvert);
+        long periodoMensal = ChronoUnit.MONTHS.between(inicioConvert, fimConvert);
+        long periodoAnual = ChronoUnit.YEARS.between(inicioConvert, fimConvert);
 
-        double mediaMensal = mensal / periodo;
-        metricas.setMediaPeriodo(mediaMensal);
+        //media de nascimentos mensal no periodo especificado
+        double mediaMensalPeriodo = periodoContagem / periodoMensal;
+        //media de nascimentos anual no periodo especificado
+        double mediaAnualPeriodo = periodoContagem / periodoAnual;
 
+
+        metricas.setMediaPeriodo(mediaMensalPeriodo);
+        metricas.setMediaAnual(mediaAnualPeriodo);
         return metricas;
     }
 }
