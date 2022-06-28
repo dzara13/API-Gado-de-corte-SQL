@@ -1,7 +1,7 @@
 package com.prog2.registrofazenda.repository;
 
 
-import com.prog2.registrofazenda.model.AnimalModel;
+import com.prog2.registrofazenda.model.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AnimalRepository extends JpaRepository<AnimalModel, Long> {
+public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-    Optional<AnimalModel> findByNumero(int numero);
+    Optional<Animal> findByNumero(int numero);
 
     boolean existsByNumero(int numero);
 
@@ -21,7 +21,7 @@ public interface AnimalRepository extends JpaRepository<AnimalModel, Long> {
 
     void deleteByNumero(int numero);
 
-    List<AnimalModel> findByNascimentoBetween(Date inicio, Date fim);
+    List<Animal> findByNascimentoBetween(Date inicio, Date fim);
 
-    int findByNascimentoTamBetween(Date inicio, Date fim);
+    int countByNascimentoBetween(Date inicio, Date fim);
 }

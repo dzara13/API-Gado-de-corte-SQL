@@ -1,6 +1,7 @@
 package com.prog2.registrofazenda.controller;
 
-import com.prog2.registrofazenda.model.AnimalModel;
+import com.prog2.registrofazenda.model.Animal;
+import com.prog2.registrofazenda.model.MetricasModel;
 import com.prog2.registrofazenda.model.exception.NegocioException;
 import com.prog2.registrofazenda.service.AnimalService;
 import lombok.AllArgsConstructor;
@@ -23,14 +24,14 @@ public class AnimalController {
     private AnimalService animalService;
 
     @GetMapping
-    public List<AnimalModel> listar() {
+    public List<Animal> listar() {
         return animalService.listar();
     }
 
     @PostMapping
-    public ResponseEntity<AnimalModel> registrar(@Valid @RequestBody AnimalModel animalModel) {
+    public ResponseEntity<Animal> registrar(@Valid @RequestBody Animal animal) {
         try {
-            AnimalModel animals = animalService.salvar(animalModel);
+            Animal animals = animalService.salvar(animal);
             return ResponseEntity.status(HttpStatus.CREATED).body(animals);
         } catch (NegocioException e) {
             log.error(e.getMessage());
@@ -39,10 +40,10 @@ public class AnimalController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AnimalModel> buscarId(@PathVariable Long id) {
+    public ResponseEntity<Animal> buscarId(@PathVariable Long id) {
         try {
-            AnimalModel animalModel = animalService.buscarId(id);
-            return ResponseEntity.status(HttpStatus.FOUND).body(animalModel);
+            Animal animal = animalService.buscarId(id);
+            return ResponseEntity.status(HttpStatus.FOUND).body(animal);
         } catch (NegocioException e) {
             log.error(e.getMessage());
             return ResponseEntity.notFound().build();
@@ -50,10 +51,10 @@ public class AnimalController {
     }
 
     @GetMapping("/numero/{numero}")
-    public ResponseEntity<AnimalModel> findByNumero(@PathVariable int numero) {
+    public ResponseEntity<Animal> findByNumero(@PathVariable int numero) {
         try {
-            AnimalModel animalModel = animalService.buscarNumero(numero);
-            return ResponseEntity.status(HttpStatus.FOUND).body(animalModel);
+            Animal animal = animalService.buscarNumero(numero);
+            return ResponseEntity.status(HttpStatus.FOUND).body(animal);
         } catch (NegocioException e) {
             log.error(e.getMessage());
             return ResponseEntity.notFound().build();
@@ -84,10 +85,10 @@ public class AnimalController {
 
     @GetMapping("/periodonascimento")
     @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<List<AnimalModel>> buscarPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
+    public ResponseEntity<List<Animal>> buscarPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
         try {
-            List<AnimalModel> animalModels = animalService.buscarPorPeriodo(inicio, fim);
-            return ResponseEntity.status(HttpStatus.FOUND).body(animalModels);
+            List<Animal> animals = animalService.buscarPorPeriodo(inicio, fim);
+            return ResponseEntity.status(HttpStatus.FOUND).body(animals);
         } catch (NegocioException e) {
             log.error(e.getMessage());
             return ResponseEntity.notFound().build();
@@ -119,10 +120,9 @@ public class AnimalController {
     }
 
     @GetMapping("/metricas")
-    public ResponseEntity<Long> metricas(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
-
-        long metrics = animalService.metrics(inicio, fim);
-        return ResponseEntity.status(HttpStatus.OK).body(metrics);
+    public ResponseEntity<MetricasModel> metricas(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
+        MetricasModel metricas = animalService.metricas(inicio, fim);
+        return ResponseEntity.status(HttpStatus.OK).body(metricas);
 
     }
 }

@@ -1,6 +1,6 @@
 package com.prog2.registrofazenda.service;
 
-import com.prog2.registrofazenda.model.AnimalModel;
+import com.prog2.registrofazenda.model.Animal;
 import com.prog2.registrofazenda.model.MetricasModel;
 import com.prog2.registrofazenda.model.exception.NegocioException;
 import com.prog2.registrofazenda.repository.AnimalRepository;
@@ -15,26 +15,25 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class AnimalService {
-
-    private MetricasModel metricasModel;
     private AnimalRepository animalRepository;
 
-    public List<AnimalModel> listar() {
+    public List<Animal> listar() {
         return animalRepository.findAll();
     }
 
     @Transactional
-    public AnimalModel salvar(AnimalModel animalModel) throws NegocioException {
-        if (!animalRepository.existsByNumero(animalModel.getNumero())) {
-            return animalRepository.save(animalModel);
+    public Animal salvar(Animal animal) throws NegocioException {
+
+        if (!animalRepository.existsByNumero(animal.getNumero())) {
+            return animalRepository.save(animal);
         } else {
             throw new NegocioException("O numero do Animal ja Existe na base de dados!");
         }
     }
 
-    public AnimalModel buscarId(Long id) throws NegocioException {
+    public Animal buscarId(Long id) throws NegocioException {
 
-        Optional<AnimalModel> animal = animalRepository.findById(id);
+        Optional<Animal> animal = animalRepository.findById(id);
         if (animal.isPresent()) {
             return animal.get();
         } else {
@@ -42,9 +41,9 @@ public class AnimalService {
         }
     }
 
-    public AnimalModel buscarNumero(Integer numero) throws NegocioException {
+    public Animal buscarNumero(Integer numero) throws NegocioException {
 
-        Optional<AnimalModel> resultado = animalRepository.findByNumero(numero);
+        Optional<Animal> resultado = animalRepository.findByNumero(numero);
         if (resultado.isPresent()) {
             return resultado.get();
         } else {
@@ -54,6 +53,7 @@ public class AnimalService {
 
     @Transactional
     public Void deletarId(Long id) throws NegocioException {
+
         boolean existsById = animalRepository.existsById(id);
         if (existsById) {
             animalRepository.deleteById(id);
@@ -65,6 +65,7 @@ public class AnimalService {
 
     @Transactional
     public Void deletarNumero(int numero) throws NegocioException {
+
         boolean existsByNumero = animalRepository.existsByNumero(numero);
         if (existsByNumero) {
             animalRepository.deleteByNumero(numero);
@@ -74,16 +75,18 @@ public class AnimalService {
         return null;
     }
 
-    public List<AnimalModel> buscarPorPeriodo(Date inicio, Date fim) throws NegocioException {
-        List<AnimalModel> animalModels = animalRepository.findByNascimentoBetween(inicio, fim);
-        if (animalModels.isEmpty()) {
+    public List<Animal> buscarPorPeriodo(Date inicio, Date fim) throws NegocioException {
+
+        List<Animal> animals = animalRepository.findByNascimentoBetween(inicio, fim);
+        if (animals.isEmpty()) {
             throw new NegocioException("Nenhum Registro no Periodo especificado");
         } else {
-            return animalModels;
+            return animals;
         }
     }
 
     public Long contadorDeRegistros() throws NegocioException {
+
         Long animais = animalRepository.count();
         if (animais == 0) {
             throw new NegocioException("Nenhum Registro encontrado");
@@ -93,14 +96,20 @@ public class AnimalService {
     }
 
     public long contagemPorPeriodo(Date inicio, Date fim) throws NegocioException {
-        List<AnimalModel> quantidade = buscarPorPeriodo(inicio, fim);
+
+        List<Animal> quantidade = buscarPorPeriodo(inicio, fim);
         if (quantidade.isEmpty()) {
             throw new NegocioException("Nenhum Registro no periodo especificado");
         } else
             return quantidade.size();
     }
 
-    public long metrics(Date inicio, Date fim){
-        return contagemPorPeriodo(inicio, fim) / animalRepository.findByNascimentoTamBetween(inicio, fim);
+    public MetricasModel metricas(Date inicio, Date fim) {
+        var metricas = new MetricasModel();
+
+        double mensal = (double) contagemPorPeriodo(inicio, fim) / animalRepository.countByNascimentoBetween(inicio, fim);
+        metricas.setMediaPeriodo(mensal);
+
+        return metricas;
     }
 }

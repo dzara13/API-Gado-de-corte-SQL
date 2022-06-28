@@ -7,5 +7,5 @@ import lombok.Data;
 public class MetricasModel {
     private int idade;
     private double mediaAnual;
-    private double mediaMensal;
+    private double mediaPeriodo;
 }
