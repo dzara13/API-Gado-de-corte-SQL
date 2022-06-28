@@ -8,9 +8,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import static com.prog2.registrofazenda.dateutils.DateUtils.convertToLocalDateViaInstant;
 
 @Service
 @AllArgsConstructor
@@ -107,8 +111,15 @@ public class AnimalService {
     public MetricasModel metricas(Date inicio, Date fim) {
         var metricas = new MetricasModel();
 
-        double mensal = (double) contagemPorPeriodo(inicio, fim) / animalRepository.countByNascimentoBetween(inicio, fim);
-        metricas.setMediaPeriodo(mensal);
+        double mensal = (double) contagemPorPeriodo(inicio, fim);
+
+        LocalDate inicioConvert = convertToLocalDateViaInstant(inicio);
+        LocalDate fimConvert = convertToLocalDateViaInstant(fim);
+
+        long periodo = ChronoUnit.DAYS.between(inicioConvert, fimConvert);
+
+        double mediaMensal = mensal / periodo;
+        metricas.setMediaPeriodo(mediaMensal);
 
         return metricas;
     }
