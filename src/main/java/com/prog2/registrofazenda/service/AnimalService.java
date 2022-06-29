@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import static com.prog2.registrofazenda.dateutils.DateUtils.convertToLocalDateViaInstant;
 
@@ -91,7 +93,7 @@ public class AnimalService {
 
     public Long contadorDeRegistros() throws NegocioException {
 
-        Long animais = animalRepository.count();
+        long animais = animalRepository.count();
         if (animais == 0) {
             throw new NegocioException("Nenhum Registro encontrado");
         } else {
@@ -109,25 +111,44 @@ public class AnimalService {
     }
 
     public MetricasModel metricas(Date inicio, Date fim) {
+
         var metricas = new MetricasModel();
+        var agora = new Date();
 
         double periodoContagem = contagemPorPeriodo(inicio, fim);
+
 
         //conversão de date para temporal
         LocalDate inicioConvert = convertToLocalDateViaInstant(inicio);
         LocalDate fimConvert = convertToLocalDateViaInstant(fim);
 
+        var diffFinal = agora.getTime() - fim.getTime();
+        TimeUnit timeFinal = TimeUnit.DAYS;
+        long diferencaEmDias = timeFinal.convert(diffFinal, TimeUnit.MILLISECONDS);
+        long anos = diferencaEmDias / 365;
+
+        var diffInicio = agora.getTime() - inicio.getTime();
+        TimeUnit timeInicio = TimeUnit.DAYS;
+        long diferencaEmDiasFinal = timeInicio.convert(diffInicio, TimeUnit.MILLISECONDS);
+        long anosFinal = diferencaEmDiasFinal / 365;
+
+        //pegando o tamanho do periodo em meses
         long periodoMensal = ChronoUnit.MONTHS.between(inicioConvert, fimConvert);
         long periodoAnual = ChronoUnit.YEARS.between(inicioConvert, fimConvert);
-
         //media de nascimentos mensal no periodo especificado
         double mediaMensalPeriodo = periodoContagem / periodoMensal;
         //media de nascimentos anual no periodo especificado
         double mediaAnualPeriodo = periodoContagem / periodoAnual;
 
+        List<Long> idades = new ArrayList<>();
+        idades.add(anos);
+        idades.add(anosFinal);
 
         metricas.setMediaPeriodo(mediaMensalPeriodo);
         metricas.setMediaAnual(mediaAnualPeriodo);
+
+        metricas.setIdades(idades);
+
         return metricas;
     }
 }
