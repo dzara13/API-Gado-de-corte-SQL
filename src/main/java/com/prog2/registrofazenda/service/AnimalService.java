@@ -149,8 +149,10 @@ public class AnimalService {
         //pegando o tamanho do periodo em meses
         var periodoMensal = ChronoUnit.MONTHS.between(inicioConvert, fimConvert);
         var periodoAnual = ChronoUnit.YEARS.between(inicioConvert, fimConvert);
+
         //media de nascimentos mensal no periodo especificado
         var mediaMensalPeriodo = periodoContagem / periodoMensal;
+
         //media de nascimentos anual no periodo especificado
         var mediaAnualPeriodo = periodoContagem / periodoAnual;
 
