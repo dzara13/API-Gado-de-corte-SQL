@@ -19,4 +19,5 @@ public class Animal {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date nascimento;
     private String marca;
+    private boolean desmama;
 }

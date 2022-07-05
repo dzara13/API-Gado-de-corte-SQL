@@ -23,5 +23,5 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
     List<Animal> findByNascimentoBetween(Date inicio, Date fim);
 
-    int countByNascimentoBetween(Date inicio, Date fim);
+    boolean existsByNumeroAndDesmama(int numero, boolean desmama);
 }

@@ -30,10 +30,12 @@ public class AnimalService {
     @Transactional
     public Animal salvar(Animal animal) throws NegocioException {
 
-        if (!animalRepository.existsByNumero(animal.getNumero())) {
+        if (!animalRepository.existsByNumeroAndDesmama((animal.getNumero()), false)) {
+
             return animalRepository.save(animal);
+
         } else {
-            throw new NegocioException("O numero do Animal ja Existe na base de dados!");
+            throw new NegocioException("O numero da mãe do animal já esta em uso por outro animal que nao foi desmamado");
         }
     }
 
