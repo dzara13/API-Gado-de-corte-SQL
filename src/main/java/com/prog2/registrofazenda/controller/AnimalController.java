@@ -51,9 +51,9 @@ public class AnimalController {
     }
 
     @GetMapping("/numero/{numero}")
-    public ResponseEntity<Animal> findByNumero(@PathVariable int numero) {
+    public ResponseEntity<List<Animal>> findByNumero(@PathVariable int numero) {
         try {
-            Animal animal = animalService.buscarNumero(numero);
+            List<Animal> animal = animalService.buscarNumero(numero);
             return ResponseEntity.status(HttpStatus.FOUND).body(animal);
         } catch (NegocioException e) {
             log.error(e.getMessage());
@@ -99,6 +99,19 @@ public class AnimalController {
     public ResponseEntity<MetricasModel> metricas(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
         MetricasModel metricas = animalService.metricas(inicio, fim);
         return ResponseEntity.status(HttpStatus.OK).body(metricas);
+
+    }
+
+    @PutMapping("{id}/desmama")
+    public ResponseEntity<Object> desmama(@PathVariable Long id) {
+
+        try {
+            animalService.desmama(id);
+            return ResponseEntity.ok().build();
+        } catch (NegocioException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
 
     }
 }

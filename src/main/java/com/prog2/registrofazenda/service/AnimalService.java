@@ -49,11 +49,11 @@ public class AnimalService {
         }
     }
 
-    public Animal buscarNumero(Integer numero) throws NegocioException {
+    public List<Animal> buscarNumero(Integer numero) throws NegocioException {
 
-        Optional<Animal> resultado = animalRepository.findByNumero(numero);
-        if (resultado.isPresent()) {
-            return resultado.get();
+        List<Animal> resultado = animalRepository.findByNumero(numero);
+        if (!resultado.isEmpty()) {
+            return resultado;
         } else {
             throw new NegocioException(String.format("Nenhum animal encontrado com o numero: %d", numero));
         }
@@ -110,6 +110,18 @@ public class AnimalService {
             throw new NegocioException("Nenhum Registro no periodo especificado");
         } else
             return quantidade.size();
+    }
+
+    @Transactional
+    public void desmama(Long id) throws NegocioException {
+        Optional<Animal> animalBuscado = animalRepository.findById(id);
+        if (animalBuscado.isPresent()) {
+            Animal animal = animalBuscado.get();
+            animal.setDesmama(true);
+            animalRepository.save(animal);
+        } else {
+            throw new NegocioException("ID não encontrado ou animal ja desmamado");
+        }
     }
 
     public MetricasModel metricas(Date inicio, Date fim) {

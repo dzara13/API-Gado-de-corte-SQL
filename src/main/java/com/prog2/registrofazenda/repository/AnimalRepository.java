@@ -7,12 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-    Optional<Animal> findByNumero(int numero);
+    List<Animal> findByNumero(int numero);
 
     boolean existsByNumero(int numero);
 
