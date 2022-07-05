@@ -129,25 +129,29 @@ public class AnimalService {
 
         var diffInicio = agora.getTime() - inicio.getTime();
         TimeUnit timeInicio = TimeUnit.DAYS;
-        long diferencaEmDiasFinal = timeInicio.convert(diffInicio, TimeUnit.MILLISECONDS);
-        long anosFinal = diferencaEmDiasFinal / 365;
+        var diferencaEmDiasFinal = timeInicio.convert(diffInicio, TimeUnit.MILLISECONDS);
+        var anosFinal = diferencaEmDiasFinal / 365;
 
         //pegando o tamanho do periodo em meses
-        long periodoMensal = ChronoUnit.MONTHS.between(inicioConvert, fimConvert);
-        long periodoAnual = ChronoUnit.YEARS.between(inicioConvert, fimConvert);
+        var periodoMensal = ChronoUnit.MONTHS.between(inicioConvert, fimConvert);
+        var periodoAnual = ChronoUnit.YEARS.between(inicioConvert, fimConvert);
         //media de nascimentos mensal no periodo especificado
-        double mediaMensalPeriodo = periodoContagem / periodoMensal;
+        var mediaMensalPeriodo = periodoContagem / periodoMensal;
         //media de nascimentos anual no periodo especificado
-        double mediaAnualPeriodo = periodoContagem / periodoAnual;
+        var mediaAnualPeriodo = periodoContagem / periodoAnual;
 
         List<Long> idades = new ArrayList<>();
         idades.add(anos);
         idades.add(anosFinal);
 
+        var porPeriodo = contagemPorPeriodo(inicio, fim);
+        var contagemTotal = contadorDeRegistros();
+
         metricas.setMediaPeriodo(mediaMensalPeriodo);
         metricas.setMediaAnual(mediaAnualPeriodo);
-
         metricas.setIdades(idades);
+        metricas.setNumeroDeNascimentosPeriodo(porPeriodo);
+        metricas.setContagemTotal(contagemTotal);
 
         return metricas;
     }

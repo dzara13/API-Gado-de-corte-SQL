@@ -10,4 +10,6 @@ public class MetricasModel {
     private List<Long> idades;
     private double mediaAnual;
     private double mediaPeriodo;
+    private long numeroDeNascimentosPeriodo;
+    private long contagemTotal;
 }

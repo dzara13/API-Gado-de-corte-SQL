@@ -95,30 +95,6 @@ public class AnimalController {
         }
     }
 
-    @GetMapping("/contagem")
-    @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<Long> contagem() {
-        try {
-            Long animais = animalService.contadorDeRegistros();
-            return ResponseEntity.status(HttpStatus.FOUND).body(animais);
-        } catch (NegocioException e) {
-            log.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/contagemporperiodo")
-    @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<Long> contagemPorPeriodo(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
-        try {
-            long registros = animalService.contagemPorPeriodo(inicio, fim);
-            return ResponseEntity.status(HttpStatus.FOUND).body(registros);
-        } catch (NegocioException e) {
-            log.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @GetMapping("/metricas")
     public ResponseEntity<MetricasModel> metricas(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
         MetricasModel metricas = animalService.metricas(inicio, fim);
