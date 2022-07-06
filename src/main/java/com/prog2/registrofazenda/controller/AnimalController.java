@@ -17,6 +17,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@CrossOrigin(methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PATCH})
 @AllArgsConstructor
 @RequestMapping("/animais")
 public class AnimalController {

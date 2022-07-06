@@ -17,7 +17,7 @@ import java.util.Date;
 @RestController
 @RequestMapping("/animais/debug")
 @AllArgsConstructor
-public class DebugController {
+public class AnimalDebugController {
 
     private AnimalRepository animalRepository;
 
@@ -65,7 +65,6 @@ public class DebugController {
     @Transactional
     @DeleteMapping("/deletar")
     public void deletar() {
-
         animalRepository.deleteAll();
     }
 
