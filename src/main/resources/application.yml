@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost/registro_animais?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mariadb://${DB_HOST:localhost}/registro_animais?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
     password: admin
   output:
