@@ -23,8 +23,12 @@ import static com.prog2.registrofazenda.dateutils.DateUtils.convertToLocalDateVi
 public class AnimalService {
     private AnimalRepository animalRepository;
 
-    public List<Animal> listar() {
-        return animalRepository.findAll();
+    public List<Animal> listar(boolean mamando) {
+        if (!mamando) {
+            return animalRepository.findAll();
+        } else {
+            return animalRepository.findByDesmama(false);
+        }
     }
 
     @Transactional

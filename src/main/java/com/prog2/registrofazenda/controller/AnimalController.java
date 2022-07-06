@@ -24,8 +24,8 @@ public class AnimalController {
     private AnimalService animalService;
 
     @GetMapping
-    public List<Animal> listar() {
-        return animalService.listar();
+    public List<Animal> listar(@RequestParam(required = false) boolean mamando) {
+        return animalService.listar(mamando);
     }
 
     @PostMapping
