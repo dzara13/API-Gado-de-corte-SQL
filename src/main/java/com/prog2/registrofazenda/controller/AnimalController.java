@@ -20,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/animais")
 public class AnimalController {
-
     private AnimalService animalService;
 
     @GetMapping
