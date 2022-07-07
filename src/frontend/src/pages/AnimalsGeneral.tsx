@@ -4,6 +4,7 @@ import { Check, X } from "phosphor-react"
 import { useEffect, useState } from "react"
 import Topbar from "../components/Topbar"
 import AnimalInput from "../types/AnimalInput"
+import toBrLocaleString from "../types/dateUtils"
 
 const baseURL = "http://localhost:8080/animais"
 
@@ -24,7 +25,7 @@ export function AnimalsGeneral() {
         <>
             <Topbar />
             <TableContainer mt="0.5rem">
-                <Table variant="striped" colorScheme="blackAlpha" size="sm">
+                <Table variant="striped" colorScheme="blackAlpha" size="lg">
                     <Thead>
                         <Tr>
                             <Th>Nro.</Th>
@@ -42,9 +43,10 @@ export function AnimalsGeneral() {
                                     <Td>{id}</Td>
                                     <Td>{numero}</Td>
                                     <Td>{sexo}</Td>
-                                    <Td>{nascimento}</Td>
+                                    <Td>{toBrLocaleString(nascimento)}</Td>
                                     <Td>{marca}</Td>
-                                    <Td>{desmama ? <Check color="#4caf50" size={28} /> : <X color="#ef5350" size={28} />}</Td>
+                                    <Td>{desmama ? <Check color="#4caf50" size={28} weight="bold" /> :
+                                        <X color="#ef5350" size={28} weight="bold" />}</Td>
                                 </Tr>
                             )
                         })}
