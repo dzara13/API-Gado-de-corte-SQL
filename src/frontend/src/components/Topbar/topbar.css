@@ -1,0 +1,24 @@
+#topbar {
+    display: flex;
+    gap: 1.5rem;
+    background-color: #4caf50;
+    color: white;
+    padding: 0.3rem;
+}
+
+#topbar #logo {
+    font-family: 'EB Garamond', serif;
+    align-items: center;
+    font-size: 1.9rem;
+    font-weight: 400;
+    display: flex;
+    gap: 0.7rem;
+}
+
+#topbar nav {
+    display: flex;
+    gap: 1rem;
+    font-weight: 400;
+    align-items: center;
+    font-size: 0.9rem;
+}

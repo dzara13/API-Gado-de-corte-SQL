@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { Home } from "./pages/Home"
+import AnimalsGeneral from "./pages/AnimalsGeneral"
+import { AnimalsSuckling } from "./pages/AnimalsSuckling"
 import { Metrics } from "./pages/Metrics"
 import RegisterAnimal from "./pages/RegisterAnimal"
 
@@ -7,7 +8,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/animais/mamando" element={<AnimalsSuckling />} />
+        <Route path="/animais" element={<AnimalsGeneral />} />
         <Route path="/metricas" element={<Metrics />} />
         <Route path="/animais/cadastrar" element={<RegisterAnimal />} />
       </Routes>

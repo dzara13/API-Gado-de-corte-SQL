@@ -10,7 +10,7 @@
 
 | Parâmetro (HEADER)  | Tipo       | Descrição                           |
 | :---------- | :--------- | :------------------------------------------ |
-| `desmamados`| `boolean`  | Quando `true` retorna os animais que nao foram desmamados, caso contrário retorna todos os animais.|
+| `mamando`| `boolean`  | Quando `true` retorna os animais que nao foram desmamados, caso contrário retorna todos os animais.|
 
 #### Busca um animal por ID
 
