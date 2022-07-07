@@ -117,7 +117,7 @@ public class AnimalService {
     }
 
     @Transactional
-    public void desmama(Long id) throws NegocioException {
+    public void desmamar(Long id) throws NegocioException {
         Optional<Animal> animalBuscado = animalRepository.findById(id);
         if (animalBuscado.isPresent()) {
             Animal animal = animalBuscado.get();

@@ -17,7 +17,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin(methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PATCH})
+@CrossOrigin(methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 @AllArgsConstructor
 @RequestMapping("/animais")
 public class AnimalController {
@@ -39,7 +39,7 @@ public class AnimalController {
         }
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Animal> buscarId(@PathVariable Long id) {
         try {
             Animal animal = animalService.buscarId(id);
@@ -61,7 +61,7 @@ public class AnimalController {
         }
     }
 
-    @DeleteMapping("/deleteid/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarId(@PathVariable Long id) {
         try {
             Void animal = animalService.deletarId(id);
@@ -72,7 +72,7 @@ public class AnimalController {
         }
     }
 
-    @DeleteMapping("/deletenumero/{numero}")
+    @DeleteMapping("/numero/{numero}")
     public ResponseEntity<Void> deletarNumero(@PathVariable int numero) {
         try {
             Void animal = animalService.deletarNumero(numero);
@@ -102,11 +102,11 @@ public class AnimalController {
 
     }
 
-    @PutMapping("{id}/desmama")
-    public ResponseEntity<Object> desmama(@PathVariable Long id) {
+    @PutMapping("/{id}/desmamar")
+    public ResponseEntity<Object> desmamar(@PathVariable Long id) {
 
         try {
-            animalService.desmama(id);
+            animalService.desmamar(id);
             return ResponseEntity.ok().build();
         } catch (NegocioException e) {
             log.error(e.getMessage());

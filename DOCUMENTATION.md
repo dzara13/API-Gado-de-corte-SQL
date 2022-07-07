@@ -44,19 +44,19 @@
 #### Deleta um animal por ID
 
 ```http
-  DEL /animais/deleteid{id}
+  DELETE /animais/{id}
 ```
 
 #### Deleta um animal por numero da mãe
 
 ```http
-  DEL /animais/deletenumero/{numero}
+  DELETE /animais/numero/{numero}
 ```
 
 #### Marca um animal como desmamado
 
 ```http
-  PUT /animais/{id}/desmama
+  PUT /animais/{id}/desmamar
 ```
 
 #### Registra um animal
