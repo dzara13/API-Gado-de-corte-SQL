@@ -1,4 +1,4 @@
-import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tooltip, Tr, useToast } from "@chakra-ui/react"
+import { IconButton, Table, TableContainer, Tbody, Td, Th, Thead, Tooltip, Tr, useToast } from "@chakra-ui/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import Topbar from "../components/Topbar"
@@ -68,46 +68,44 @@ export function AnimalsSuckling() {
 
     return (
         <>
-            <Topbar />
-            <TableContainer mt="0.5rem">
-                <Table variant="striped" colorScheme="blackAlpha" size="lg">
-                    <Thead>
-                        <Tr>
-                            <Th>Nro.</Th>
-                            <Th>Nro. da Mãe</Th>
-                            <Th>Sexo</Th>
-                            <Th>Data de nascimento</Th>
-                            <Th>Marca</Th>
-                            <Th>Ações</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {animals && animals.map(({ id, numero, sexo, nascimento, marca }: AnimalInput) => {
-                            return (
-                                <Tr key={id.toString()}>
-                                    <Td>{id}</Td>
-                                    <Td>{numero}</Td>
-                                    <Td>{sexo}</Td>
-                                    <Td>{toBrLocaleString(nascimento)}</Td>
-                                    <Td>{marca}</Td>
-                                    <Td>
-                                        <Tooltip label="Desmamar">
-                                            <Button colorScheme="blue" size="md" mr="0.5rem" h={12} onClick={() => handleAnimalWeaning(id)}>
-                                                <BeerBottle color="white" size={20} />
-                                            </Button>
-                                        </Tooltip>
-                                        <Tooltip label="Dar baixa">
-                                            <Button colorScheme="red" size="md" h={12} onClick={() => handleAnimalDismiss(id)}>
-                                                <Trash color="white" size={20} />
-                                            </Button>
-                                        </Tooltip>
-                                    </Td>
-                                </Tr>
-                            )
-                        })}
-                    </Tbody>
-                </Table>
-            </TableContainer>
+            <main>
+                <Topbar />
+                <TableContainer mt="0.5rem">
+                    <Table variant="striped" colorScheme="blackAlpha" size="lg">
+                        <Thead>
+                            <Tr>
+                                <Th>Nro.</Th>
+                                <Th>Nro. da Mãe</Th>
+                                <Th>Sexo</Th>
+                                <Th>Data de nascimento</Th>
+                                <Th>Marca</Th>
+                                <Th>Ações</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {animals && animals.map(({ id, numero, sexo, nascimento, marca }: AnimalInput) => {
+                                return (
+                                    <Tr key={id.toString()}>
+                                        <Td>{id}</Td>
+                                        <Td>{numero}</Td>
+                                        <Td>{sexo}</Td>
+                                        <Td>{toBrLocaleString(nascimento)}</Td>
+                                        <Td>{marca}</Td>
+                                        <Td>
+                                            <Tooltip label="Desmamar">
+                                                <IconButton icon={<BeerBottle color="white" size={23} />} aria-label="Desmamar o animal" mr="0.5rem" colorScheme="blue" size="md" onClick={() => handleAnimalWeaning(id)} />
+                                            </Tooltip>
+                                            <Tooltip label="Dar baixa">
+                                                <IconButton icon={<Trash color="white" size={23} />} aria-label="Dar baixa no animal" colorScheme="red" size="md" onClick={() => handleAnimalDismiss(id)} />
+                                            </Tooltip>
+                                        </Td>
+                                    </Tr>
+                                )
+                            })}
+                        </Tbody>
+                    </Table>
+                </TableContainer>
+            </main>
         </>
     )
 }
