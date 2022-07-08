@@ -23,8 +23,8 @@ export function AnimalsGeneral() {
 
     return (
         <>
+            <Topbar />
             <main>
-                <Topbar />
                 <TableContainer mt="0.5rem">
                     <Table variant="striped" colorScheme="blackAlpha" size="lg">
                         <Thead>
