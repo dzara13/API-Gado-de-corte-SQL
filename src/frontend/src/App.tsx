@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/animais/mamando" element={<AnimalsSuckling />} />
         <Route path="/animais" element={<AnimalsGeneral />} />
-        <Route path="/metricas" element={<Metrics />} />
+        <Route path="/animais/metricas" element={<Metrics />} />
         <Route path="/animais/cadastrar" element={<RegisterAnimal />} />
       </Routes>
     </BrowserRouter>

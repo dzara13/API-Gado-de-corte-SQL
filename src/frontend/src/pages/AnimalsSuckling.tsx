@@ -93,10 +93,21 @@ export function AnimalsSuckling() {
                                         <Td>{marca}</Td>
                                         <Td>
                                             <Tooltip label="Desmamar">
-                                                <IconButton icon={<BeerBottle color="white" size={23} />} aria-label="Desmamar o animal" mr="0.5rem" colorScheme="blue" size="md" onClick={() => handleAnimalWeaning(id)} />
+                                                <IconButton
+                                                    icon={<BeerBottle color="white" size={23} />}
+                                                    aria-label="Desmamar o animal"
+                                                    mr="0.5rem"
+                                                    colorScheme="blue"
+                                                    size="md"
+                                                    onClick={() => handleAnimalWeaning(id)} />
                                             </Tooltip>
                                             <Tooltip label="Dar baixa">
-                                                <IconButton icon={<Trash color="white" size={23} />} aria-label="Dar baixa no animal" colorScheme="red" size="md" onClick={() => handleAnimalDismiss(id)} />
+                                                <IconButton
+                                                    icon={<Trash color="white" size={23} />}
+                                                    aria-label="Dar baixa no animal"
+                                                    colorScheme="red"
+                                                    size="md"
+                                                    onClick={() => handleAnimalDismiss(id)} />
                                             </Tooltip>
                                         </Td>
                                     </Tr>
