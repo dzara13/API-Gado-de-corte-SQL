@@ -92,12 +92,12 @@ export function AnimalsSuckling() {
                                     <Td>{marca}</Td>
                                     <Td>
                                         <Tooltip label="Desmamar">
-                                            <Button colorScheme="blue" size="md" mr="0.5rem" onClick={() => handleAnimalWeaning(id)}>
+                                            <Button colorScheme="blue" size="md" mr="0.5rem" h={12} onClick={() => handleAnimalWeaning(id)}>
                                                 <BeerBottle color="white" size={20} />
                                             </Button>
                                         </Tooltip>
                                         <Tooltip label="Dar baixa">
-                                            <Button colorScheme="red" size="md" onClick={() => handleAnimalDismiss(id)}>
+                                            <Button colorScheme="red" size="md" h={12} onClick={() => handleAnimalDismiss(id)}>
                                                 <Trash color="white" size={20} />
                                             </Button>
                                         </Tooltip>
