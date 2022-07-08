@@ -4,7 +4,7 @@ import { Check, X } from "phosphor-react"
 import { useEffect, useState } from "react"
 import Topbar from "../components/Topbar"
 import AnimalInput from "../types/AnimalInput"
-import toBrLocaleString from "../types/dateUtils"
+import toBrLocaleString from "../utils/dateUtils"
 
 const baseURL = "http://localhost:8080/animais"
 
