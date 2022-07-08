@@ -29,7 +29,7 @@ export function Topbar() {
                             </MenuItem>
 
                             <MenuItem as={RouterLink} to="/animais/cadastrar">
-                                Registro
+                                Registrar
                             </MenuItem>
 
                             <MenuItem as={RouterLink} to="/animais/metricas">

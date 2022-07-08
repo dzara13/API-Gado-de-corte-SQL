@@ -26,8 +26,8 @@ export function AnimalsSuckling() {
         }).catch(err => {
             console.log(err)
             animalWeaningToast({
-                title: 'Ocorreu um erro na desmama do animal.',
-                status: 'error',
+                title: "Ocorreu um erro na desmama do animal.",
+                status: "error",
                 duration: 3000,
                 isClosable: true
             })
