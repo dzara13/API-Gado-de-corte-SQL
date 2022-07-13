@@ -38,7 +38,7 @@ export function AnimalsSuckling() {
         axios.delete(baseURL + `/${id}`).then(response => {
             response.status == 200 && animalWeaningToast({
                 title: "Baixa aplicada.",
-                description: `O a baixa no animal de número "${id}" foi aplicada com sucesso!`,
+                description: `A baixa no animal de número "${id}" foi aplicada com sucesso!`,
                 status: "success",
                 duration: 3000,
                 isClosable: true
