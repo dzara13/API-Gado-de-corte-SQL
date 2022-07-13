@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
@@ -24,5 +25,7 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
     boolean existsByNumeroAndDesmama(int numero, boolean desmama);
 
-    List<Animal>findByDesmama(boolean desmamados);
+    List<Animal> findByDesmama(boolean desmamados);
+
+    Optional<Animal> findFirstByOrderByNascimento();
 }

@@ -1,10 +1,11 @@
 package com.prog2.registrofazenda.service;
 
 import com.prog2.registrofazenda.model.Animal;
-import com.prog2.registrofazenda.model.MetricasModel;
+import com.prog2.registrofazenda.model.Metricas;
 import com.prog2.registrofazenda.model.exception.NegocioException;
 import com.prog2.registrofazenda.repository.AnimalRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import static com.prog2.registrofazenda.dateutils.DateUtils.convertToLocalDateViaInstant;
+import static com.prog2.registrofazenda.utils.DateUtils.convertToLocalDateViaInstant;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class AnimalService {
     private AnimalRepository animalRepository;
@@ -128,9 +130,21 @@ public class AnimalService {
         }
     }
 
-    public MetricasModel metricas(Date inicio, Date fim) {
+    public Metricas metricas() {
+        Optional<Animal> animalBuscado = animalRepository.findFirstByOrderByNascimento();
 
-        var metricas = new MetricasModel();
+        if (animalBuscado.isPresent()) {
+            Animal animal = animalBuscado.get();
+            Date nascimento = new Date(animal.getNascimento().getTime());
+            return metricas(nascimento, new Date());
+        }
+
+        return null;
+    }
+
+    public Metricas metricas(Date inicio, Date fim) {
+
+        var metricas = new Metricas();
         var agora = new Date();
 
         double periodoContagem = contagemPorPeriodo(inicio, fim);

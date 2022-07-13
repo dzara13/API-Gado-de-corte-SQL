@@ -1,8 +1,12 @@
-## Documentação da API V1.0 alpha
+# Documentação da API V1.0 alpha
 
 ###### V1.0 alpha
 
-#### Retorna todos os registros
+*OBS: Todas as variáveis do tipo `Date` são strings de data no formato `yyyy-MM-dd`.*
+
+## Endpoints
+
+### Retorna todos os registros
 
 ```http
   GET /animais
@@ -12,25 +16,30 @@
 | :---------- | :--------- | :------------------------------------------ |
 | `mamando`| `boolean`  | Quando `true` retorna os animais que nao foram desmamados, caso contrário retorna todos os animais.|
 
-#### Busca um animal por ID
+### Busca um animal por ID
 
 ```http
   GET /animais/{id}
 ```
 
-#### Busca um animal por numero da mãe
+### Busca um animal por numero da mãe
 
 ```http
   GET /animais/numero/{numero}
 ```
 
-#### Retorna todas as metricas aplicadas no periodo especificado pelo usuario
+### Retorna todas as metricas aplicadas no periodo especificado pelo usuario
 
 ```https
   GET /animais/metricas
 ```
 
-#### Busca em um intervalo de periodo especificado pelo usuario
+| Parâmetro (HEADER)  | Tipo       | Descrição                       |
+| :---------- | :--------- |:----------------------------------------|
+| `inicio`    | `Date`     | Data do inicio do intervalo.            |
+| `fim`       | `Date`     | Data do fim do intervalo.               |
+
+### Busca em um intervalo de periodo especificado pelo usuario
 
 ```http
   GET /animais/periodonascimento
@@ -41,25 +50,25 @@
 | `inicio`    | `Date`     | **Obrigatório**. Data do inicio do intervalo.|
 | `fim`       | `Date`     | **Obrigatório**. Data do fim do intervalo.  |
 
-#### Deleta um animal por ID
+### Deleta um animal por ID
 
 ```http
   DELETE /animais/{id}
 ```
 
-#### Deleta um animal por numero da mãe
+### Deleta um animal por numero da mãe
 
 ```http
   DELETE /animais/numero/{numero}
 ```
 
-#### Marca um animal como desmamado
+### Marca um animal como desmamado
 
 ```http
   PUT /animais/{id}/desmamar
 ```
 
-#### Registra um animal
+### Registra um animal
 
 ```http
   POST /animais

@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class MetricasModel {
+public class Metricas {
     private List<Long> idades;
     private double mediaAnual;
     private double mediaPeriodo;

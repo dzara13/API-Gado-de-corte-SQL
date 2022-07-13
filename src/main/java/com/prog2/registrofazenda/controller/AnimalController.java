@@ -1,7 +1,7 @@
 package com.prog2.registrofazenda.controller;
 
 import com.prog2.registrofazenda.model.Animal;
-import com.prog2.registrofazenda.model.MetricasModel;
+import com.prog2.registrofazenda.model.Metricas;
 import com.prog2.registrofazenda.model.exception.NegocioException;
 import com.prog2.registrofazenda.service.AnimalService;
 import lombok.AllArgsConstructor;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @Slf4j
 @RestController
@@ -96,10 +98,21 @@ public class AnimalController {
     }
 
     @GetMapping("/metricas")
-    public ResponseEntity<MetricasModel> metricas(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
-        MetricasModel metricas = animalService.metricas(inicio, fim);
-        return ResponseEntity.status(HttpStatus.OK).body(metricas);
+    public ResponseEntity<Metricas> metricas(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date inicio,
+                                             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fim) {
+        Metricas metricas;
 
+        if (isNull(inicio) && isNull(fim)) {
+            metricas = animalService.metricas();
+        } else {
+            metricas = animalService.metricas(inicio, fim);
+        }
+
+        if (isNull(metricas)) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(metricas);
+        }
     }
 
     @PutMapping("/{id}/desmamar")

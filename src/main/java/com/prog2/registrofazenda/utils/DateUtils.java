@@ -1,4 +1,6 @@
-package com.prog2.registrofazenda.dateutils;
+package com.prog2.registrofazenda.utils;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -12,6 +14,11 @@ public class DateUtils {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
+    }
+
+    public static Date convertDateStringToDateObj(
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateString) {
+        return dateString;
     }
 }
 
