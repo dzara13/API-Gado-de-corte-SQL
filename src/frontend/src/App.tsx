@@ -4,16 +4,23 @@ import { AnimalsSuckling } from "./pages/AnimalsSuckling"
 import { Metrics } from "./pages/Metrics"
 import RegisterAnimal from "./pages/RegisterAnimal"
 
+import '@fontsource/eb-garamond/400.css'
+import '@fontsource/roboto/400.css'
+import { ChakraProvider } from "@chakra-ui/react"
+import registroFazendaTheme from "./chakra.config"
+
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/animais/mamando" element={<AnimalsSuckling />} />
-        <Route path="/animais" element={<AnimalsGeneral />} />
-        <Route path="/animais/metricas" element={<Metrics />} />
-        <Route path="/animais/cadastrar" element={<RegisterAnimal />} />
-      </Routes>
-    </BrowserRouter>
+    <ChakraProvider theme={registroFazendaTheme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/animais/mamando" element={<AnimalsSuckling />} />
+          <Route path="/animais" element={<AnimalsGeneral />} />
+          <Route path="/animais/metricas" element={<Metrics />} />
+          <Route path="/animais/cadastrar" element={<RegisterAnimal />} />
+        </Routes>
+      </BrowserRouter>
+    </ChakraProvider>
   )
 }
 

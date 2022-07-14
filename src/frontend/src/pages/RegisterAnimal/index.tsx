@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, FormControl, FormHelperText, FormLabel, Heading, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Radio, RadioGroup, useToast } from "@chakra-ui/react"
+import { Box, Button, ButtonGroup, FormControl, FormHelperText, FormLabel, Heading, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Radio, RadioGroup, Text, useToast } from "@chakra-ui/react"
 import { ArrowLeft, FloppyDisk } from "phosphor-react"
 import Topbar from "../../components/Topbar"
 import { Link as RouterLink } from "react-router-dom"
@@ -50,7 +50,7 @@ export function RegisterAnimal() {
                 <Box m="1rem">
                     <Box mb="1rem">
                         <Heading color="gray.700">Registro de Animal</Heading>
-                        <Heading as="h3" size="sm" color="gray.500" fontWeight="light">Registre um novo animal inserindo as informações abaixo.</Heading>
+                        <Text as="h3" size="sm" color="gray.500" fontWeight="light">Registre um novo animal inserindo as informações abaixo.</Text>
                     </Box>
                     <form method="post" onSubmit={(event) => handleAnimalRegistration(event)}>
                         <FormControl isRequired>

@@ -2,7 +2,6 @@ import CowPng from '../../assets/cow-head-icon.png'
 import { Box, Button, Image, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import './topbar.css'
-import '../../global.css'
 import { CaretDown } from 'phosphor-react'
 
 export function Topbar() {
