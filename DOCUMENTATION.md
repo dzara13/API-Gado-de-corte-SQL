@@ -33,11 +33,11 @@
 ```https
   GET /animais/metricas
 ```
-
 | Parâmetro (HEADER)  | Tipo       | Descrição                       |
 | :---------- | :--------- |:----------------------------------------|
 | `inicio`    | `Date`     | Data do inicio do intervalo.            |
 | `fim`       | `Date`     | Data do fim do intervalo.               |
+###### Se nenhum intervalo for especificado o valor retornado é do periodo total.
 
 ### Busca em um intervalo de periodo especificado pelo usuario
 
