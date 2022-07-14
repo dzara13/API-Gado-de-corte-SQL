@@ -3,7 +3,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import Topbar from "../components/Topbar"
 import { BeerBottle, Trash } from "phosphor-react"
-import AnimalInput from "../types/AnimalInput"
+import AnimalFromApi from "../types/AnimalInput"
 import toBrLocaleString from "../utils/dateUtils"
 
 const baseURL = "http://localhost:8080/animais"
@@ -83,7 +83,7 @@ export function AnimalsSuckling() {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {animals && animals.map(({ id, numero, sexo, nascimento, marca }: AnimalInput) => {
+                            {animals && animals.map(({ id, numero, sexo, nascimento, marca }: AnimalFromApi) => {
                                 return (
                                     <Tr key={id.toString()}>
                                         <Td>{id}</Td>

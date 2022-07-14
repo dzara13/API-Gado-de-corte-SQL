@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import AnimalsGeneral from "./pages/AnimalsGeneral"
 import { AnimalsSuckling } from "./pages/AnimalsSuckling"
+import { RegisterAnimal } from "./pages/RegisterAnimal"
 import { Metrics } from "./pages/Metrics"
-import RegisterAnimal from "./pages/RegisterAnimal"
 
 import '@fontsource/eb-garamond/400.css'
 import '@fontsource/roboto/400.css'
