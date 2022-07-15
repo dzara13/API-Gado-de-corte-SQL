@@ -31,39 +31,26 @@ function MetricCard({ title, children }: MetricCardProps) {
 export function Metrics() {
     const baseURL = "http://localhost:8080/animais"
 
-    const [metrics, setMetrics] = useState<MetricsFromApi | {}>({})
+    const [metrics, setMetrics] = useState<MetricsFromApi | null>(null)
 
     function getMetricsFromApi() {
         axios.get(baseURL + "/metricas")
             .then(response => {
                 setMetrics(response.data)
+            }).catch(e => {
+                console.log(e)
             })
     }
 
     useEffect(() => {
         getMetricsFromApi()
-    }, [])
+    })
 
     return (
         <>
             <Topbar />
             <main>
-                {Object.keys(metrics).length > 0 ? (
-                    <Flex height="100vh" direction="column" alignItems="center" justifyContent="center" fontSize="2xl" gap="1rem">
-                        <Flex alignItems="center" gap="1rem">
-                            <MagnifyingGlass size={64} />
-                            <span>Ops! Não foi encontrada nenhuma métrica!</span>
-                        </Flex>
-                        <Button
-                            colorScheme="green"
-                            leftIcon={<ArrowLeft size={23} weight="bold" />}
-                            as={RouterLink}
-                            to="/animais"
-                            size="lg">
-                            Voltar
-                        </Button>
-                    </Flex>
-                ) : (
+                {metrics ? (
                     <Box m="1rem">
                         <Box mb="1rem">
                             <Heading color="gray.700">Métricas dos Animais</Heading>
@@ -133,6 +120,21 @@ export function Metrics() {
                             </MetricCard>
                         </Flex>
                     </Box>
+                ) : (
+                    <Flex height="100vh" direction="column" alignItems="center" justifyContent="center" fontSize="2xl" gap="1rem">
+                        <Flex alignItems="center" gap="1rem">
+                            <MagnifyingGlass size={64} />
+                            <span>Ops! Não foi encontrada nenhuma métrica!</span>
+                        </Flex>
+                        <Button
+                            colorScheme="green"
+                            leftIcon={<ArrowLeft size={23} weight="bold" />}
+                            as={RouterLink}
+                            to="/animais"
+                            size="lg">
+                            Voltar
+                        </Button>
+                    </Flex>
                 )}
             </main>
         </>
